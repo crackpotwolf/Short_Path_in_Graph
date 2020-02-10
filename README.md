@@ -23,4 +23,6 @@
 для каждого `peaks` мы вычисляем новое расстояние `peaks[2] + distance-to-vertex-peaks[0]`, если новое расстояние меньше `distance-to-vertex-peaks[1]`, мы обновляем `distance-to-vertex-peaks[1]` с новым расстоянием.
 
 Результат: 
+
+
 ![](https://sun9-48.userapi.com/c854328/v854328256/1ec1fd/yrhbNPEUQ7c.jpg)
