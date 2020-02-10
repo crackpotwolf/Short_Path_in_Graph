@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="peak.js"></script>
+
+  <script type="text/javascript" src="js/raphael-min.js"></script>
+  <script type="text/javascript" src="js/dracula_graffle.js"></script>
+  <script type="text/javascript" src="js/dracula_graph.js"></script>
+</head>
+
+<style>
+  .form-control { margin-bottom: 20px }
+</style>
+
+<body>
+  <div class="card" style="margin-top: 2%; margin-left: 35%; margin-right: 35%;">
+    <div class="card-body">
+      <h5 class="card-title">Нахождение кротчайщего пути в графе</h5>
+
+      <label for="exampleFormControlTextarea1">Начальная вершина</label>
+      <input class="form-control" id="one" type="text" />
+
+      <label for="exampleFormControlTextarea1">Конечная вершина</label>
+      <input class="form-control" id="two" type="text" />
+
+      <label for="exampleFormControlTextarea1">Вес</label>
+      <input class="form-control" id="weight" type="text" disabled/>
+
+      <label for="exampleFormControlTextarea1">Путь</label>
+      <input class="form-control" id="way" type="text" disabled/>
+
+      <a href="#" id="btn" class="btn btn-primary">Решить</a>
+
+      <div id="canvas" ></div>
+
+      <script>
+        btn.onclick = function () {
+          find_shortest_path(document.getElementById("one").value, document.getElementById("two").value, peaks);
+        };
+
+        var graph = new Graph();
+
+        for (var i = 0; i < peaks.length; i++) {
+          if (peaks[i][1] != 999) {
+            graph.addEdge(peaks[i][0], peaks[i][1]);
+
+            graph.addEdge(peaks[i][0], peaks[i][1], {
+            directed: true,
+            fill: "#5a5",
+            label: peaks[i][2]
+          });
+          }
+        }
+
+        var layouter = new Graph.Layout.Spring(graph);
+        layouter.layout();
+
+        var renderer = new Graph.Renderer.Raphael('canvas', graph, 512, 368);
+        renderer.draw();
+
+      </script>
+    </div>
+  </div>
+</body>
+</html>
